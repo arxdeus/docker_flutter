@@ -2,7 +2,7 @@ name: BUILD AND PUBLISH FLUTTER IMAGES
 
 #curl -X POST -H "Accept: application/vnd.github.v3+json" \
 #     -H "Authorization: token GITHUB_PERSONAL_ACCESS_TOKEN" \
-#     https://api.github.com/repos/plugfox/docker_flutter/dispatches \
+#     https://api.github.com/repos/arxdeus/docker_flutter/dispatches \
 #     -d '{"event_type":"build_flutter","client_payload":{"version":"3.19.0"}}'
 
 # Trigger workflow manually or via repository dispatch event
@@ -39,7 +39,7 @@ permissions:
 
 # Global environment variables
 env:
-  DOCKER_IMAGE: plugfox/flutter
+  DOCKER_IMAGE: arxdeus/flutter
   GHCR_IMAGE: ghcr.io/${{ github.repository_owner }}/flutter
   CACHE_TAG: cache
   UBUNTU_VERSION: 24.04

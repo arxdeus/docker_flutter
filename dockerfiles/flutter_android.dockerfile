@@ -7,6 +7,9 @@ ARG ANDROID_SDK_TOOLS_VERSION=11076708
 ARG ANDROID_PLATFORM_VERSION=35
 ARG ANDROID_BUILD_TOOLS_VERSION=35.0.0
 
+# https://developer.android.com/ndk/downloads
+ARG ANDROID_NDK_VERSION=27.2.12479018
+
 ARG ANDROID_HOME="/opt/android"
 
 # Build stage to prepare Android SDK
@@ -68,7 +71,7 @@ RUN set -eux; \
 # ------------------------------
 # Flutter Android development image
 # ------------------------------
-FROM plugfox/flutter:${VERSION} AS production
+FROM arxdeus/flutter:${VERSION} AS production
 
 # Set non-interactive mode for apt-get
 ENV DEBIAN_FRONTEND=noninteractive
@@ -78,6 +81,7 @@ ARG ANDROID_HOME
 ARG ANDROID_SDK_TOOLS_VERSION
 ARG ANDROID_PLATFORM_VERSION
 ARG ANDROID_BUILD_TOOLS_VERSION
+ARG ANDROID_NDK_VERSION
 
 # Add environment variables
 ENV ANDROID_HOME=$ANDROID_HOME \
@@ -86,6 +90,7 @@ ENV ANDROID_HOME=$ANDROID_HOME \
     ANDROID_SDK_TOOLS_VERSION=$ANDROID_SDK_TOOLS_VERSION \
     ANDROID_PLATFORM_VERSION=$ANDROID_PLATFORM_VERSION \
     ANDROID_BUILD_TOOLS_VERSION=$ANDROID_BUILD_TOOLS_VERSION \
+    ANDROID_NDK_VERSION=$ANDROID_NDK_VERSION \
     PATH="${PATH}:${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools"
 
 # Copy Android dependencies from build stage
@@ -114,6 +119,7 @@ RUN set -eux; \
     sdkmanager --sdk_root=${ANDROID_HOME} --install "platform-tools" && \
     sdkmanager --sdk_root=${ANDROID_HOME} --install "platforms;android-$ANDROID_PLATFORM_VERSION" && \
     sdkmanager --sdk_root=${ANDROID_HOME} --install "build-tools;$ANDROID_BUILD_TOOLS_VERSION" && \
+    sdkmanager --sdk_root=${ANDROID_HOME} --install "ndk;$ANDROID_NDK_VERSION" && \
     sdkmanager --sdk_root=${ANDROID_HOME} --install "extras;google;instantapps" && \
     sdkmanager --list_installed > /root/sdkmanager-list-installed.txt && \
     ln -sf ${ANDROID_HOME}/platform-tools/adb /usr/bin/adb

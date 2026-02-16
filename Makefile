@@ -28,15 +28,15 @@ build: ## Build images for channel or version, make build VERSION="<VERSION OR C
 	@docker build --compress \
 		 --file ./dockerfiles/flutter.dockerfile \
 		 --build-arg VERSION=$(VERSION) \
-		 --tag plugfox/flutter:$(VERSION) .
+		 --tag arxdeus/flutter:$(VERSION) .
 	@docker build --compress \
 		 --file ./dockerfiles/flutter_web.dockerfile \
 		 --build-arg VERSION=$(VERSION) \
-		 --tag "plugfox/flutter:$(VERSION)-web" .
+		 --tag "arxdeus/flutter:$(VERSION)-web" .
 	@docker build --compress \
 		 --file ./dockerfiles/flutter_android.dockerfile \
 		 --build-arg VERSION=$(VERSION) \
-		 --tag "plugfox/flutter:$(VERSION)-android" .
+		 --tag "arxdeus/flutter:$(VERSION)-android" .
 
 .PHONY: build-arm
 build-arm: ## Build arm64 images, make build-arm VERSION="<VERSION OR CHANNEL>"
@@ -44,15 +44,15 @@ build-arm: ## Build arm64 images, make build-arm VERSION="<VERSION OR CHANNEL>"
 	@docker buildx build --platform linux/arm64 --compress \
 		 --file ./dockerfiles/flutter.dockerfile \
 		 --build-arg VERSION=$(VERSION) \
-		 --tag plugfox/flutter:$(VERSION) .
+		 --tag arxdeus/flutter:$(VERSION) .
 	@docker buildx build --platform linux/arm64 --compress \
 		 --file ./dockerfiles/flutter_web.dockerfile \
 		 --build-arg VERSION=$(VERSION) \
-		 --tag "plugfox/flutter:$(VERSION)-web" .
+		 --tag "arxdeus/flutter:$(VERSION)-web" .
 	@docker buildx build --platform linux/arm64 --compress \
 		 --file ./dockerfiles/flutter_android.dockerfile \
 		 --build-arg VERSION=$(VERSION) \
-		 --tag "plugfox/flutter:$(VERSION)-android" .
+		 --tag "arxdeus/flutter:$(VERSION)-android" .
 
 .PHONY: build-x64
 build-x64: ## Build x64 images, make build-x64 VERSION="<VERSION OR CHANNEL>"
@@ -60,15 +60,15 @@ build-x64: ## Build x64 images, make build-x64 VERSION="<VERSION OR CHANNEL>"
 	@docker buildx build --platform linux/amd64 --compress \
 		 --file ./dockerfiles/flutter.dockerfile \
 		 --build-arg VERSION=$(VERSION) \
-		 --tag plugfox/flutter:$(VERSION) .
+		 --tag arxdeus/flutter:$(VERSION) .
 	@docker buildx build --platform linux/amd64 --compress \
 		 --file ./dockerfiles/flutter_web.dockerfile \
 		 --build-arg VERSION=$(VERSION) \
-		 --tag "plugfox/flutter:$(VERSION)-web" .
+		 --tag "arxdeus/flutter:$(VERSION)-web" .
 	@docker buildx build --platform linux/amd64 --compress \
 		 --file ./dockerfiles/flutter_android.dockerfile \
 		 --build-arg VERSION=$(VERSION) \
-		 --tag "plugfox/flutter:$(VERSION)-android" .
+		 --tag "arxdeus/flutter:$(VERSION)-android" .
 
 
 # --- CHECK ---
@@ -78,7 +78,7 @@ check: ## Check image, make check VERSION="<VERSION OR CHANNEL>"
 	@docker run --rm -it -v $(shell pwd)/tools:/home/tools --workdir /home/tools \
 		--user=root:root \
 		--name flutter_$(VERSION)_android \
-		plugfox/flutter:$(VERSION)-android sh /home/tools/build_demo_android.sh
+		arxdeus/flutter:$(VERSION)-android sh /home/tools/build_demo_android.sh
 
 # --- DOCKER HUB ---
 
@@ -88,15 +88,15 @@ login: ## Authentication at docker registry
 
 .PHONY: push
 push: ## Push images to docker registry, make push VERSION="<VERSION OR CHANNEL>"
-	@docker push plugfox/flutter:$(VERSION)
-	@docker push plugfox/flutter:$(VERSION)-web
-	@docker push plugfox/flutter:$(VERSION)-android
+	@docker push arxdeus/flutter:$(VERSION)
+	@docker push arxdeus/flutter:$(VERSION)-web
+	@docker push arxdeus/flutter:$(VERSION)-android
 
 .PHONY: scan
 scan: ## Scan images for vulnerabilities
-	@docker scan plugfox/flutter:$(VERSION)
-	@docker scan plugfox/flutter:$(VERSION)-web
-	@docker scan plugfox/flutter:$(VERSION)-android
+	@docker scan arxdeus/flutter:$(VERSION)
+	@docker scan arxdeus/flutter:$(VERSION)-web
+	@docker scan arxdeus/flutter:$(VERSION)-android
 
 # --- UTILS ---
 
@@ -105,11 +105,11 @@ shell: ## Get root, make shell VERSION="<VERSION OR CHANNEL>"
 	@docker run --rm -it -v $(shell pwd):/build --workdir /build \
 		--user=root:root \
 		--name flutter_$(VERSION)-android \
-		plugfox/flutter:$(VERSION)-android /bin/bash
+		arxdeus/flutter:$(VERSION)-android /bin/bash
 
 .PHONY: prune
 prune: ## Prune images
-	@docker image prune -af --filter "label=family=plugfox/flutter"
+	@docker image prune -af --filter "label=family=arxdeus/flutter"
 
 .PHONY: diff
 diff: ## git diff

@@ -32,7 +32,7 @@ RUN set -eux; \
 #
 # Final stage: Flutter SDK + Linux deps
 #
-FROM plugfox/flutter:${VERSION} AS production
+FROM arxdeus/flutter:${VERSION} AS production
 
 # Copy Linux deps from build image
 COPY --from=build /usr /usr

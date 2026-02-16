@@ -17,7 +17,7 @@ RUN apk add --no-cache git && \
 # ------------------------------
 # Flutter web development image
 # ------------------------------
-FROM plugfox/flutter:${VERSION}
+FROM arxdeus/flutter:${VERSION}
 
 USER root
 WORKDIR /app

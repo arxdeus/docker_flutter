@@ -70,9 +70,9 @@ RUN set -eux; \
 LABEL org.opencontainers.image.title="Flutter Docker" \
       org.opencontainers.image.description="Ubuntu-based Docker image with Flutter and Dart" \
       org.opencontainers.image.licenses="MIT" \
-      org.opencontainers.image.source="https://github.com/plugfox/docker_flutter" \
-      maintainer="Plague Fox <PlugFox@gmail.com>" \
-      family=plugfox/flutter
+      org.opencontainers.image.source="https://github.com/arxdeus/docker_flutter" \
+      maintainer="Plague Fox <arxdeus@gmail.com>" \
+      family=arxdeus/flutter
 
 # Default command to run when the container starts
 CMD ["flutter", "doctor"]
